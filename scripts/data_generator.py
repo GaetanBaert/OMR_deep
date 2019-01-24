@@ -1,25 +1,10 @@
 
-# coding: utf-8
-
-# In[1]:
-
-
-
-
-
-# In[2]:
-
-
-
-
-
-# In[6]:
 
 
 import os
 import cv2
 import numpy as np
-import mmap    
+import mmap
 import keras
 
 import tensorflow as tf
@@ -49,7 +34,7 @@ class DataGenerator(keras.utils.Sequence):
     def __getitem__(self, index):
         'Generate one batch of data'
         # Generate indexes of the batch
-        if(index+1)*self.batch_size<len(self.indexes): 
+        if(index+1)*self.batch_size<len(self.indexes):
             indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
         else:
             indexes = self.indexes[index*self.batch_size:-1]
@@ -85,19 +70,19 @@ class DataGenerator(keras.utils.Sequence):
             if y_temp.shape[0] != 0:
                 image_temp = cv2.imread(images_path +'/'+ ID)
                 if len(image_temp.shape)>2:
-                    	image_temp = cv2.cvtColor(image_temp, cv2.COLOR_BGR2GRAY) 
+                    	image_temp = cv2.cvtColor(image_temp, cv2.COLOR_BGR2GRAY)
                 image_temp = cv2.resize(image_temp,(0,0),fx=0.5,fy=0.5, interpolation =cv2.INTER_CUBIC)
                 image_temp = cv2.resize(image_temp,(0,0),fx=0.5,fy=0.5, interpolation =cv2.INTER_CUBIC).T
                 X_len.append(image_temp.shape[0])
-                
+
                 y.append(self.convert_into_number(y_temp))
                 y_len.append(y_temp.shape[0])
                 # Store sample
                 X.append(image_temp)
-                
+
         y_len = np.asarray(y_len)
         X_len = np.asarray(X_len)
-                
+
         pad_value = max(X_len)
 #        y_pad_value = max(y_len)
         for i in range(len(X)):
@@ -108,12 +93,12 @@ class DataGenerator(keras.utils.Sequence):
 #                y[i] = np.concatenate((y[i] , np.floor(np.random.rand(y_pad_value-len(y[i]))*4)+self.n_classes))
         X = keras.preprocessing.sequence.pad_sequences(X, value= float(127),dtype="float32", padding="post")
         y = keras.preprocessing.sequence.pad_sequences(y, value=self.n_classes , dtype="int32", padding="post")
-            # Store class 
+            # Store class
         n,length, height = X.shape
-        
+
         return [X,y,X_len,y_len]
 #        return [np.reshape(X, [n,length,height, 1]), y, X_len, y_len]
-    
+
     def convert_into_number(self, y):
         t = self.list_label.split('{')[1]
         t = t.split('}')[0]
@@ -127,9 +112,9 @@ class DataGenerator(keras.utils.Sequence):
                     res.append(j)
                     break
         return res
-                    
-                
-        
+
+
+
 
     def generate_data(self,directory,category_function):
         images_path = os.path.abspath("../data/{}_out_x/".format(directory))
@@ -173,7 +158,7 @@ class DataGenerator(keras.utils.Sequence):
 
     def rythms_label(self, f, imagename):
         image_labels = self.labels_for_image(f,imagename)
-        
+
         for res in image_labels[2:]:
             temp = res.split('_')
             if len(temp)>1:
@@ -183,5 +168,3 @@ class DataGenerator(keras.utils.Sequence):
 
         
         return(res.split('_')[-1] if res.split('_')[-1]!=''  else '|' for res in image_labels[2:] )
-
-

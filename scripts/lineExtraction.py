@@ -27,7 +27,7 @@ undesiredTypes = sum([[i[0] for i in inspect.getmembers(classe,inspect.isclass)]
 
 def dropLyrics(sheetLine):
     for o in sheetLine:
-        if type(o).__name__ not in undesiredTypes:        
+        if type(o).__name__ not in undesiredTypes:
             if type(o)==music21.stream.Part:
                 for obj in o:
                     if type(obj).__name__ not in undesiredTypes:
@@ -86,8 +86,8 @@ def remainingTimeDisplay(i,nbImages,startTime):
             return str(nbMinutes)+' m '+str(nbSecondes)+' s'
     else:
         return str(nbSecondes)+' s'
-    
-    
+
+
 def extract_lines(pathLoad,pathSave,labelFileName):
     startTime = time.time()
     os.makedirs(pathSave, exist_ok=True)
@@ -146,7 +146,7 @@ def labelAnalysis(filename):
         for line in txt:
             if line is not '\n':
                 labels.append(line.replace('\n','').split(' : '))
-    
+
     notes = []
     clefs = dict()
     for label in labels:
@@ -158,32 +158,20 @@ def labelAnalysis(filename):
                 if not c[5:7] in clefs.keys():
                     clefs[c[5:7]]=0
                 clefs[c[5:7]]+=1
-    
+
     notes_occurences = list(set(notes))
     print('Nb occurences notes : '+str(len(notes_occurences)))
     notes_occurences.remove('rest')
-    
+
     heights = [int(n.split('_')[-1]) for n in notes_occurences]
     heights_occurences = list(set(heights))
     print('Amplitude : from '+str(min(heights_occurences))+' to '+str(max(heights_occurences)))
-    
+
     types = [n.split('_')[0] for n in notes_occurences]
     types_occurences = list(set(types))
     print('Differents notes : '+str(len(types_occurences)))
-    
+
     clefs_occurences = list(set(clefs.keys()))
     print('Nb clefs : '+str(len(clefs_occurences)))
-    
+
     return types_occurences
-
-
-def cropImages(path):
-    for filename in os.listdir(path):
-        image=cv2.imread(path+filename,0)
-        
-        
-        
-        
-        
-        
-        
