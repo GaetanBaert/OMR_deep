@@ -36,9 +36,12 @@ On the evaluation dataset, here are the results obtained. error rate is the mean
 
 Here are some examples of images with predictions associated :
 
-[images/100508_0.png]
+![image 1](https://github.com/GaetanBaert/OMR_deep/edit/master/images/100508_0.png)
+
+
 prediction :
  <section> B-_5 rest_rest D_6 D_6 C_| D_6 rest_5 rest_rest F_rest B-_4 D_5 A-_5 B-_5 |_5 F_| A-_5 E-_5 F_5 rest_5 E-_rest D_5 E-_5 E-_5 D_5 A-_5 B-_4 D_4 B-_5 4 </section>
+
 
 reality :
 <section> B-_4 rest_rest D_5 D_5 C#_5 D_5 rest_rest rest_rest F_4 B-_4 D-_5 A-_4 B-_4 |_| F_4 A-_4 E-_4 F_4 rest_rest E-_4 D-_4 F-_4 E-_4 D-_4 A-_3 A-_3 D-_4 B-_3 </section>
