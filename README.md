@@ -77,7 +77,11 @@ Here the result is better (perfect match for octaves) and the errors on notes na
 
 ## Aknowledgments
 I have to thank Robin Condat, for his help about the construction of the dataset.
+
 I want to thank Yann Soulard and Cyprien Ruffino for their implementation of the CTC model, available here : <https://github.com/ysoullard/CTCModel>.
+
 I want to thank the Musescore team for the dataset.
+
 I also want to thank Eelco Van der Weel and Karen Ullrich for their paper that inspired me for thisproject : <https://arxiv.org/pdf/1707.04877.pdf>. They also proposed a script to download the Musescore dataset : <https://github.com/eelcovdw/mono-musicxml-dataset>
+
 Finally, I want to thank Clément Chatelain for his help and INSA Rouen-Normandie for giving me the time to work on this project.
