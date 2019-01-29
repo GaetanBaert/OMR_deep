@@ -36,7 +36,7 @@ On the evaluation dataset, here are the results obtained. error rate is the mean
 
 Here are some examples of images with predictions associated :
 
-![image 1](https://github.com/GaetanBaert/OMR_deep/edit/master/images/100508_0.png)
+![image 1](https://github.com/GaetanBaert/OMR_deep/blob/master/images/100508_0.png)
 
 
 prediction :
@@ -45,6 +45,10 @@ prediction :
 
 reality :
 <section> B-_4 rest_rest D_5 D_5 C#_5 D_5 rest_rest rest_rest F_4 B-_4 D-_5 A-_4 B-_4 |_| F_4 A-_4 E-_4 F_4 rest_rest E-_4 D-_4 F-_4 E-_4 D-_4 A-_3 A-_3 D-_4 B-_3 </section>
+
+We can see there is some troubles with exotic keys (G key with an octave offset, the little 8 on the image), but the notes names are good. There is some deletion/addition errors on octave labels(a | at the start). 
+
+
 
 ## Libraries used :
 + Numpy
