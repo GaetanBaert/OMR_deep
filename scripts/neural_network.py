@@ -97,12 +97,12 @@ nb_labels = 15 # 15 symboles pour les octaves
 nb_epochs = 10
 ids=dict()
 ids['train']=os.listdir(os.path.abspath("../data/train_out_x/"))
-ids['eval']= os.listdir(os.path.abspath("../data/evaluation_out_x/"))[:2000]
+ids['valid']= os.listdir(os.path.abspath("../data/validation_out_x/"))
 train_generator = datas.DataGenerator(ids['train'], "train", "octave", octaves_label, n_classes = nb_labels, batch_size = 24)
-eval_generator = datas.DataGenerator(ids['eval'],"evaluation", "octave", octaves_label, n_classes = nb_labels, batch_size = 24)
+valid_generator = datas.DataGenerator(ids['valid'],"validation", "octave", octaves_label, n_classes = nb_labels, batch_size = 24)
 nb_train = len(ids['train'])
-nb_eval = len(ids['eval'])
-x_eval = eval_generator[0]
+nb_valid = len(ids['valid'])
+x_eval = valid_generator[0]
 y_eval = np.zeros(len(x_eval[0][2]))
 nb_features = int(x_eval[0][0].shape[2]) #Hauteur des images
 padding_value = 127
@@ -111,19 +111,16 @@ network = create_network(nb_features, nb_labels, padding_value, "octave")
 checkpoint = ModelCheckpoint(filepath="octave_model/notes_model_256-{epoch:02d}-{val_loss:.2f}.h5")
 network.save_model("octave_model")
 network.load_model("octave_model", Adam(lr=0.0001), "notes_model/notes_model_256_generator.h5",by_name=True )
-
-#%%
-train_generator.indexes = pickle.load(open("notes_model/generator.pkl",'rb'))
-
 #%%
 
-network.fit_generator(generator = train_generator, steps_per_epoch= len(train_generator), callbacks = [checkpoint], workers = 1, validation_data=eval_generator, epochs=30, initial_epoch = 12)
+network.fit_generator(generator = train_generator, steps_per_epoch= len(train_generator), callbacks = [checkpoint], workers = 1, validation_data=valid_generator, epochs=30, initial_epoch = 25)
 
 network.model_train.save_weights("octave_model/octave_model_256_generator.h5")
 
 #%%
-eval = datas.DataGenerator(ids['eval'], "evaluation", "octave", octaves_label, n_classes = nb_labels, batch_size = 240)[0][0]
-model_eval = network.evaluate(x = eval, batch_size=24, metrics=['ler', 'ser'])
+ids['eval']= os.listdir(os.path.abspath("../data/evaluation_out_x/"))
+eval_generator = datas.DataGenerator(ids['eval'], "evaluation", "octave", octaves_label, n_classes = nb_labels, batch_size = 64)
+model_eval = network.evaluate_generator(generator = eval_generator, metrics=['ler', 'ser'], verbose = 1)
 
 #%%
 f_eval = open("notes_model/eval_256_generator.txt",'a')
@@ -132,7 +129,7 @@ f_eval.close()
 
 
 #%% 
-eval = datas.DataGenerator(ids['eval'], "evaluation", "notes", notes_label, n_classes = nb_labels, batch_size = 10)[0][0]
+eval = datas.DataGenerator(ids['eval'], "evaluation", "octave", octaves_label, n_classes = nb_labels, batch_size = 10)[0][0]
 def convert_into_notes(list_label, y):
     t = list_label.split('{')[1]
     t = t.split('}')[0]
