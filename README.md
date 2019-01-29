@@ -30,9 +30,11 @@ On the evaluation dataset, here are the results obtained. error rate is the mean
 
 | | note name | octave |
 | ------ | ------ | ------ |
-| error rate | | 0.1516 |
+| error rate | 0.1271 | 0.1516 <sup>[1]</sup>|
 
-Here is some examples of images with predictions associated : 
+<a name=footnote1>[1]</a>: the octave model can be trained more for a better result
+
+Here are some examples of images with predictions associated : 
 
 ## Libraries used :
 + Numpy
@@ -46,3 +48,4 @@ I want to thank Yann Soulard and Cyprien Ruffino for their implementation of the
 I want to thank the Musescore team for the dataset.
 I also want to thank Eelco Van der Weel and Karen Ullrich for their paper that inspired me for thisproject : <https://arxiv.org/pdf/1707.04877.pdf>. They also proposed a script to download the Musescore dataset : <https://github.com/eelcovdw/mono-musicxml-dataset>
 Finally, I want to thank Clément Chatelain for his help and INSA Rouen-Normandie for giving me the time to work on this project.
+
