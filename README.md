@@ -26,6 +26,11 @@ Each part of the label (note name, octave and rythm) are classified by a differe
 
 ## Results
 At the moment, Notes names and octaves network are trained (not rythms).
+On the evaluation dataset, here are the results obtained. error rate is the mean of the label error rate for each image.
+
+| | note name | octave |
+| ------ | ------ | ------ |
+| error rate | | 0.1516 |
 
 Here is some examples of images with predictions associated : 
 
