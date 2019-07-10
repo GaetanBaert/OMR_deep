@@ -30,8 +30,8 @@ Each part of the label (note name, octave and rythm) are classified by a head co
 
 
 ## Results
-At the moment, Notes names and octaves network are trained (not rythms).
-On the evaluation dataset, here are the results obtained. error rate is the mean of the label error rate for each image.
+The rythms was not trained with the architecture with only 3 BLSTM layers. 
+On the evaluation dataset, here are the results obtained. The label error rate correspond to the number of mistakes in the output sequences over all the groundtruth labels.
 
 |label error rate  | note name | octave | rythms|
 | ------ | ------ | ------ | ------ |
