@@ -14,27 +14,32 @@ Staves don't always have the same length and have a different number of notes. T
 
 ### CTC model
 The CTC model (Connectionist Temporal Classification) is an algorithm that allows to train convolutional neural network layers like RNN or, more especially LSTM layers. The main advantage of CTC is to manage the different spaces between the element of a sequence.
+It allows to label an unsegmented sequence by adding a "blank" label which is ignored at final prediction.
 
 <https://www.cs.toronto.edu/~graves/icml_2006.pdf>
 
 ### BLSTM
-BLSTM (Bidirectional Long-Short Term Memory) cells are units of a RNN layer able to remember values at different moments over time. A neural layer of LSTM can give sequences by using a label which means the end of the sequence.
+BLSTM (Bidirectional Long-Short Term Memory) cells are units of RNN layers able to remember features over time, and forget elements which are not useful for the sequence . A neural layer of LSTM can give sequences by using a label which means the end of the sequence.
+
+### CNN
+Before using BLSTM layers, we process the images to obtain features of them thanks to a convolutional network.
 
 ### Architecture chosen
-The architecture chosen for this project consists in 3 BLSTM layers of 256 neurons, then a dense layer is added with a softmax activation function to classify each element of the sequence. This architecture is trained thanks to CTC.
-Each part of the label (note name, octave and rythm) are classified by a different neural network .
+The architecture chosen for this project consists in 6 Conv layers followed by an AveragePooling and 3 BLSTM, then a dense layer is added with a softmax activation function to classify each element of the sequence. This architecture is trained thanks to CTC.
+Each part of the label (note name, octave and rythm) are classified by a head composed of the 2 lasts BLSTM layers and a Softmax. The deep layers of the model are common for the three classifiers.
+
 
 ## Results
 At the moment, Notes names and octaves network are trained (not rythms).
 On the evaluation dataset, here are the results obtained. error rate is the mean of the label error rate for each image.
 
-| | note name | octave |
-| ------ | ------ | ------ |
-| error rate | 0.1271 | 0.1516 <sup>[1]</sup>|
+|label error rate  | note name | octave | rythms|
+| ------ | ------ | ------ | ------ |
+|6 CNN + 3 BLSTM (on augmented datas) | 0.069 | 0.1 | 0.025|
+|3 BLSTM  | 0.1271 | 0.1516 | //|
 
-<a name=footnote1>[1]</a>: the octave model can be trained more for a better result
 
-Here are some examples of images with predictions associated :
+Here are some examples of images with predictions associated for the model with only the three BSLTM layers:
 
 ![image 1](https://github.com/GaetanBaert/OMR_deep/blob/master/images/100508_0.png)
 
