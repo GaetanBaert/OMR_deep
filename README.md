@@ -35,7 +35,7 @@ On the evaluation dataset, here are the results obtained. The label error rate c
 
 |label error rate  | note name | octave | rythms|
 | ------ | ------ | ------ | ------ |
-|6 CNN + 3 BLSTM (on augmented datas) | 0.069 | 0.1 | 0.025|
+|6 convolutive layers + 3 BLSTM (on noised datas) | 0.069 | 0.1 | 0.025|
 |3 BLSTM  | 0.1271 | 0.1516 | //|
 
 
